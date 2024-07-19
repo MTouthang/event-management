@@ -17,10 +17,6 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
       </body>
-      <div className="flex gap-2">
-        <Link href={"/"}> Home </Link>
-        <Link href={"/profile"}> Profile </Link>
-      </div>
     </html>
   );
 }

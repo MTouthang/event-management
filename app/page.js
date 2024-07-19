@@ -1,5 +1,9 @@
-import Image from "next/image";
+import Button from "@/component/Button";
+
+export const metadata = {
+  title: "Home",
+};
 
 export default function Home() {
-  return <button className="m-2 btn primary">hello world</button>;
+  return <Button />;
 }
