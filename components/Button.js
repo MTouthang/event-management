@@ -13,9 +13,6 @@ export default function Button() {
 
   return (
     <>
-      <button className="btn btn-primary" onClick={fetchUser}>
-        Get Users
-      </button>
       <ul>
         {users.map((user) => {
           return <li key={user.id}> {user.name}</li>;
