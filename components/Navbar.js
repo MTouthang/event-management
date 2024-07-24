@@ -1,7 +1,11 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 const Navbar = () => {
+  const { status, data: session } = useSession();
   return (
     <div className="text-gray-800 navbar bg-base-300">
       <div className="navbar-start">
@@ -40,12 +44,52 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="gap-4 navbar-end">
-        <Link href={"/login"} className="btn">
-          Login
-        </Link>
-        <Link href="/signup" className="btn">
-          Signup
-        </Link>
+        {status === "authenticated" && (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <Image
+                  alt="Profile Picture"
+                  src={session.user.image ?? "/default-user.png"}
+                  width={60}
+                  height={60}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <Link href="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link href="/events/create">Create Event</Link>
+              </li>
+              <li>
+                <Link href="" onClick={signOut}>
+                  Sign Out
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
+        {status === "unauthenticated" && (
+          <div className="flex-none">
+            <ul className="px-1 menu menu-horizontal">
+              <li>
+                <Link href="/login">Login</Link>
+              </li>
+              <li>
+                <Link href="/signup">Sign Up</Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

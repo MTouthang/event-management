@@ -1,12 +1,10 @@
+import { getUserByEmail } from "@/app/lib/actions/user.action";
 import bcrypt from "bcrypt";
 import Credentials from "next-auth/providers/credentials";
 
-import { getUserByEmail } from "@/lib/actions/user.actions";
-import { pages } from "next/dist/build/templates/app-page";
-
 export const authConfig = {
   pages: {
-    signin: "/login",
+    signIn: "/login",
   },
 
   providers: [

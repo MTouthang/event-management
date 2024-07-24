@@ -17,11 +17,11 @@ export const createUser = async (user) => {
 };
 
 // get user by mail
-export async function getUserByEmail(userEmail) {
+export const getUserByEmail = async (userEmail) => {
   await dbConnect();
 
   const user = await User.findOne({ email: userEmail });
 
   if (!user) throw new Error("user not found");
   return JSON.parse(JSON.stringify(user));
-}
+};

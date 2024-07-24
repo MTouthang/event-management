@@ -2,12 +2,16 @@
 import React, { useState } from "react";
 import { createUser } from "../app/lib/actions/user.action";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
+  // create user
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -16,13 +20,17 @@ const SignUpForm = () => {
         name: name,
         password: password,
       });
-      console.log(user);
-
       if (user) {
-        toast.success("Sign Up Successful");
-        setEmail("");
-        setName("");
-        setPassword(" ");
+        const res = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+
+        if (res.status === 200) {
+          toast.success("Sign Up Successful");
+          router.push("/profile");
+        }
       }
     } catch (error) {
       toast.error("Sign Up Failed: This email is already registered");
