@@ -1,5 +1,5 @@
 import daisyui from "daisyui";
-
+import { withUT } from "uploadthing/tw";
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
